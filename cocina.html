@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Cocina</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col border">
+                <h2>Pedidos en Preparacion</h2>
+                <div id="pedidos"></div>
+            </div>
+            <div class="col border">
+                <h2>Historial</h2>
+                <div id="historial"></div>
+            </div>
+            <div class="col border">
+                <h2>Resumen</h2>
+                <div id="resumen">
+                    <div class="card">
+                        <div class="card-body">
+                            <p id="totalPedidos">Total de pedidos: 0</p>
+                            <p id="pedidosEntregados">Pedidos entregados: 0</p>
+                            <p id="pedidosCancelados">Pedidos cancelados: 0</p>
+                            <p id="capitalTotal">Capital total: </p>
+                            <p id="hamburguesa">Hamburguesa: </p>
+                            <p id="pizza">Pizza: </p>
+                            <p id="pancho">Pancho: </p>
+                            <p id="taco">Taco: </p>
+                            <p id="sushi">Sushi: </p>
+                            <p id="cerveza">Cerveza: </p>
+                            <p id="vino">Vino: </p>
+                            <p id="cocteles">Cocteles: </p>
+                            <p id="refrescos">Refrescos: </p>
+                            <p id="cafe">Cafe: </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let totalPedidos = localStorage.getItem('totalPedidos') ? parseInt(localStorage.getItem('totalPedidos')) : 0;
+        let pedidosEntregados = localStorage.getItem('pedidosEntregados') ? parseInt(localStorage.getItem('pedidosEntregados')) : 0;
+        let pedidosCancelados = localStorage.getItem('pedidosCancelados') ? parseInt(localStorage.getItem('pedidosCancelados')) : 0;
+
+        document.getElementById('totalPedidos').innerText = `Total de pedidos: ${totalPedidos}`;
+        document.getElementById('pedidosEntregados').innerText = `Pedidos entregados: ${pedidosEntregados}`;
+        document.getElementById('pedidosCancelados').innerText = `Pedidos cancelados: ${pedidosCancelados}`;
+
+        fetch('http://localhost:3000/pedidos')
+            .then(response => response.json())
+            .then(data => {
+                let pedidosDiv = document.getElementById('pedidos');
+                let historialDiv = document.getElementById('historial');
+                data.forEach(pedido => {
+                    let card = document.createElement('div');
+                    card.className = 'card';
+                    let botones = '';
+                    if (pedido.status === 'preparacion') {
+                        botones = `
+                    <button class="btn btn-primary" onclick="cambiarEstado(${pedido.id}, this, 'entregado')">Listo</button>
+                    <button class="btn btn-danger" onclick="cambiarEstado(${pedido.id}, this, 'cancelado')">Cancelar</button>
+                `;
+                        totalPedidos++;
+                        localStorage.setItem('totalPedidos', totalPedidos);
+                        document.getElementById('totalPedidos').innerText = `Total de pedidos: ${totalPedidos}`;
+                    }
+                    card.innerHTML = `
+                <div class="card-body">
+                    <h5 class="card-title">Pedido ID: ${pedido.id}</h5>
+                    <p>Mesa ID: ${pedido.mesa_id}</p>
+                    ${pedido.orden.map(item => `
+                        <p>Item ID: ${item.id}, Nombre: ${item.nombre}, Cantidad: ${item.cantidad}, Precio: ${item.precio}</p>
+                    `).join('')}
+                    <p>Total: ${pedido.total}</p>
+                    <p>Status: ${pedido.status}</p>
+                    ${botones}
+                </div>`;
+                    if (pedido.status === 'entregado' || pedido.status === 'cancelado') {
+                        historialDiv.appendChild(card);
+                    } else if (pedido.status === 'preparacion') {
+                        pedidosDiv.appendChild(card);
+                    }
+                });
+            })
+            .then(() => {
+                calcularCapital();
+                contarComidas();
+            })
+            .catch(error => console.error('Error:', error));
+
+        function cambiarEstado(id, btn, estado) {
+            fetch(`http://localhost:3000/pedidos/${id}`)
+                .then(response => response.json())
+                .then(pedido => {
+                    pedido.status = estado;
+                    fetch(`http://localhost:3000/pedidos/${id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(pedido),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (estado === 'entregado') {
+                                pedidosEntregados++;
+                                localStorage.setItem('pedidosEntregados', pedidosEntregados);
+                                document.getElementById('pedidosEntregados').innerText = `Pedidos entregados: ${pedidosEntregados}`;
+                            } else if (estado === 'cancelado') {
+                                pedidosCancelados++;
+                                localStorage.setItem('pedidosCancelados', pedidosCancelados);
+                                document.getElementById('pedidosCancelados').innerText = `Pedidos cancelados: ${pedidosCancelados}`;
+                            }
+                            location.reload();
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                        });
+                });
+        }
+
+        function calcularCapital() {
+            let historialDiv = document.getElementById('historial');
+            let cards = historialDiv.getElementsByClassName('card');
+            let capitalTotal = 0;
+            let canceladoTotal = 0;
+            for (let i = 0; i < cards.length; i++) {
+                let status = cards[i].getElementsByTagName('p')[3].innerText;
+                let total = parseFloat(cards[i].getElementsByTagName('p')[2].innerText.split(': ')[1]);
+                if (status === 'Status: entregado') {
+                    capitalTotal += total;
+                } else if (status === 'Status: cancelado') {
+                    canceladoTotal += total;
+                }
+            }
+            capitalTotal -= canceladoTotal;
+            document.getElementById('capitalTotal').innerText = `Capital total: ${capitalTotal}`;
+        }
+
+        function contarComidas() {
+            let comidas = ['hamburguesa', 'pizza', 'pancho', 'taco', 'sushi', 'cerveza', 'vino', 'cocteles', 'refrescos', 'cafe'];
+            let conteos = {};
+            comidas.forEach(comida => conteos[comida] = 0);
+
+            fetch('http://localhost:3000/pedidos')
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(pedido => {
+                        if (pedido.status === 'entregado') {
+                            pedido.orden.forEach(item => {
+                                if (comidas.includes(item.nombre)) {
+                                    conteos[item.nombre] += Number(item.cantidad);
+                                }
+                            });
+                        }
+                    });
+                    comidas.forEach(comida => document.getElementById(comida).innerText = `${comida.charAt(0).toUpperCase() + comida.slice(1)}: ${conteos[comida]}`);
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+
+</body>
+
+</html>
