@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stilo_copy.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <title>Restaurante</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="logo.png" alt="Logo del restaurante">
+                <h1>Resto-Bar Tommy</h1>
+            </div>
+            <ul class="menu">
+                <li><a href="#mesas"><i class="fas fa-utensils"></i> Mesas</a></li>
+                <li><a href="#menu"><i class="fas fa-book"></i> Menú</a></li>
+                <li><a href="#pedido"><i class="fas fa-shopping-cart"></i> Pedido</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main-container">
+        <nav>
+            <!-- Tu menú de navegación -->
+        </nav>
+
+        <div class="content">
+            <section id="mesas">
+                <h2>Mesas</h2>
+                <div class="table-buttons">
+                    <button class="button" id="btn1">Mesa 1</button>
+                    <button class="button" id="btn2">Mesa 2</button>
+                    <button class="button" id="btn3">Mesa 3</button>
+                    <button class="button" id="btn4">Mesa 4</button>
+                    <button class="button" id="btn5">Mesa 5</button>
+                </div>
+            </section>
+
+            <section id="menu">
+                <h2>Menú</h2>
+                <div class="menu-items">
+                    <button class="button" id="hamburguesa">Hamburguesa - $1500</button>
+                    <button class="button" id="pizza">Pizza - $2400</button>
+                    <button class="button" id="pancho">Pancho - $500</button>
+                    <button class="button" id="taco">Taco - $1000</button>
+                    <button class="button" id="sushi">Sushi - $5000</button>
+                    <button class="button" id="cerveza">Cerveza - $600</button>
+                    <button class="button" id="vino">Vino - $1000</button>
+                    <button class="button" id="cocteles">Cocteles - $1400</button>
+                    <button class="button" id="refrescos">Refrescos - $800</button>
+                    <button class="button" id="cafe">Café - $450</button>
+                </div>
+            </section>
+        </div>
+
+        <aside class="order-container">
+            <section id="pedido">
+                <h2>Pedido</h2>
+                <div class="pedido-items">
+                    <!-- Aquí se mostrarán los elementos seleccionados -->
+                </div>
+            </section>
+            <div class="pedido-button">
+                <button class="button" id="entrega">Enviar Pedido</button>
+            </div>
+        </aside>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

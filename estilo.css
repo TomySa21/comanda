@@ -1,0 +1,107 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+/* Estilos para el contenedor de Inputs */
+.input-container {
+    text-align: center; /* Centra los elementos horizontalmente */
+    margin-bottom: 20px;
+    max-width: 300px; /* Reducir el ancho máximo */
+    padding: 10px; /* Reducir el padding */
+}
+
+
+input[type="text"],
+input[type="number"] {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    width: 100%;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #ff2600d8;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #ff0800b0;
+}
+
+/* Estilos para el contenedor de Datos del Array */
+.data-container {
+    text-align: center; /* Centra los elementos horizontalmente */
+}
+
+/* Estilos para la lista de productos */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* Estilos para la lista de productos */
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: 1px solid #ddd;
+    color: #333;
+}
+
+/* Estilos para los botones de actualizar y eliminar */
+.update-button,
+.delete-button {
+    padding: 5px 10px;
+    background-color: #33cc33;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.delete-button {
+    background-color: #cc3333;
+}
+
+.update-button:hover,
+.delete-button:hover {
+    background-color: #339933;
+}
+
+/* Separación entre botones */
+.update-button {
+    margin-right: 5px; /* Agrega margen entre el botón "Actualizar" y "Eliminar" */
+}

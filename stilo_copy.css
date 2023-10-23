@@ -1,0 +1,26 @@
+
+  body {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Div de la izquierda */
+.left-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 50%;
+}
+
+.table-buttons {
+    /* Estilos para table-buttons */
+}
+
+.menu-items {
+    /* Estilos para menu-items */
+}
+
+/* Div de la derecha */
+.right-div {
+    width: 50%;
+}

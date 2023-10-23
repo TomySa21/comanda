@@ -1,0 +1,121 @@
+{
+  "pedidos": [
+    {
+      "id": "20",
+      "mesa_id": "1",
+      "orden": [
+        {
+          "id": "1",
+          "nombre": "hamburguesa",
+          "cantidad": "1",
+          "precio": "1500",
+          "menu_id": "1"
+        },
+        {
+          "id": "2",
+          "nombre": "pancho",
+          "cantidad": "1",
+          "precio": "500",
+          "menu_id": "3"
+        },
+        {
+          "id": "3",
+          "nombre": "pizza",
+          "cantidad": "1",
+          "precio": "2400",
+          "menu_id": "2"
+        },
+        {
+          "id": "4",
+          "nombre": "taco",
+          "cantidad": "1",
+          "precio": "1000",
+          "menu_id": "4"
+        }
+      ],
+      "total": "5400"
+    }
+  ],
+  "menu": [
+    {
+      "id": "1",
+      "producto": "hamburguesa",
+      "precio": "1500",
+      "stock_id": "1"
+    },
+    {
+      "id": "2",
+      "producto": "pizza",
+      "precio": "2400",
+      "stock_id": "2"
+    },
+    {
+      "id": "3",
+      "producto": "pancho",
+      "precio": "500",
+      "stock_id": "3"
+    },
+    {
+      "id": "4",
+      "producto": "tacos",
+      "precio": "1000",
+      "stock_id": "4"
+    },
+    {
+      "id": "5",
+      "producto": "sushi",
+      "precio": "5000",
+      "stock_id": "5"
+    },
+    {
+      "id": "6",
+      "producto": "cerveza",
+      "precio": "600",
+      "stock_id": "6"
+    },
+    {
+      "id": "7",
+      "producto": "vino",
+      "precio": "1000",
+      "stock_id": "7"
+    },
+    {
+      "id": "8",
+      "producto": "cocteles",
+      "precio": "1400",
+      "stock_id": "8"
+    },
+    {
+      "id": "9",
+      "producto": "refrescos",
+      "precio": "800",
+      "stock_id": "9"
+    },
+    {
+      "id": "10",
+      "producto": "cafe",
+      "precio": "450",
+      "stock_id": "10"
+    }
+  ],
+  "stock": [
+    {
+      "id": "1",
+      "nombre": "hamburguesa",
+      "cantidad": "10",
+      "costo": "1500"
+    },
+    {
+      "id": "2",
+      "nombre": "pizza",
+      "cantidad": "20",
+      "costo": "2400"
+    },
+    {
+      "id": "3",
+      "nombre": "pancho",
+      "cantidad": "7",
+      "costo": "500"
+    }
+  ]
+}
